@@ -1,0 +1,24 @@
+{
+  "name": "nextjs",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@tailwindcss/forms": "^0.3.3",
+    "axios": "^0.21.1",
+    "cookie": "^0.4.1",
+    "jose": "^3.12.3",
+    "next": "10.x",
+    "react": "17.x",
+    "react-dom": "17.x"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.2.6",
+    "postcss": "^8.3.0",
+    "tailwindcss": "^2.1.4"
+  }
+}
