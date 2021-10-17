@@ -3,10 +3,13 @@ import { useRouter } from 'next/router';
 
 import axios from 'axios';
 
+import Layout from '../../components/layout';
+
 export default function Signin({ email }) {
   const router = useRouter();
   const [signInEmail, setSignInEmail] = useState('');
   const [signInPassword, setSignInPassword] = useState('');
+  const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
   function handleSignInEmailFieldChange(event) {
@@ -22,6 +25,7 @@ export default function Signin({ email }) {
   async function handleEmailPasswordSignIn(event) {
     event.preventDefault();
     setErrorMessage('');
+    setLoading(true);
 
     try {
       const res = await axios({
@@ -37,24 +41,27 @@ export default function Signin({ email }) {
         router.push('/profile');
       } else {
         setErrorMessage('There was an error signing in');
+        setLoading(false);
       }
     } catch (err) {
       console.error(err);
       const responseStatus = err.response.status;
       if (responseStatus === 500) {
         setErrorMessage('An unknown error occured. If this persists, please contact us.');
+        setLoading(false);
       } else {
         setErrorMessage('There was an error signing in');
+        setLoading(false);
       }
     }
   }
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen py-2">
+    <Layout>
       <main className="flex flex-col items-center justify-center flex-1 text-center">
         <div className="flex md:flex-row justify-center my-6">
           <h1 className="text-6xl font-bold mt-6">
-            Welcome to <a href="/" className="hover:text-purple-500 focus:text-purple-500">Crow Auth</a>
+            Sign In
           </h1>
         </div>
 
@@ -83,24 +90,36 @@ export default function Signin({ email }) {
             />
           </label>
           <button
-            className="mt-6 border p-2 hover:bg-purple-500 hover:text-white"
+            className={`
+              bg-white mt-6 border rounded-xl border-gray-300 p-2 hover:bg-purple-500 hover:text-white
+              ${
+                loading ? "bg-purple-500 text-white animate-pulse" : ""
+              }
+            `}
+            disabled={loading}
             onClick={handleEmailPasswordSignIn}
           >
             Sign In
           </button>
         </div>
-        <p>
-          Don't have an account?
-        </p>
-        <p>
-          <a href="/profile/signup" className="font-bold hover:text-purple-500 focus:text-purple-500">
-            Sign Up
-          </a>
-        </p>
+
+        <div className="flex flex-row gap-6">
+          <p>
+            <a href="/profile/signup" className="font-bold hover:text-purple-500 focus:text-purple-500">
+              Sign Up
+            </a>
+          </p>
+
+          <p>
+            <a href="/profile/reset-password-email" className="font-bold hover:text-purple-500 focus:text-purple-500">
+              Reset Password
+            </a>
+          </p>
+        </div>
         <p className="text-red-900">
           { errorMessage }
         </p>
       </main>
-    </div>
+    </Layout>
   )
 }

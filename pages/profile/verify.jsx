@@ -3,10 +3,13 @@ import { useRouter } from 'next/router';
 
 import axios from 'axios';
 
+import Layout from '../../components/layout';
+
 export default function Verify() {
   const router = useRouter();
   const { verificationToken: tokenFromQuery } = router.query;
   const [verificationToken, setVerificationToken] = useState('');
+  const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
@@ -24,6 +27,7 @@ export default function Verify() {
   async function handleVerification(event) {
     event.preventDefault();
     setErrorMessage('');
+    setLoading(true);
 
     try {
       const res = await axios({
@@ -38,24 +42,27 @@ export default function Verify() {
         router.push('/profile/signin');
       } else {
         setErrorMessage('There was an error verifying your email');
+        setLoading(false);
       }
     } catch (err) {
       console.error(err);
       const responseStatus = err.response.status;
       if (responseStatus === 500) {
         setErrorMessage('An unknown error occured. If this persists, please contact us.');
+        setLoading(false);
       } else {
         setErrorMessage('There was an error verifying your email');
+        setLoading(false);
       }
     }
   }
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen py-2">
+    <Layout>
       <main className="flex flex-col items-center justify-center flex-1 text-center">
         <div className="flex md:flex-row justify-center my-6">
           <h1 className="text-6xl font-bold mt-6">
-            Welcome to <a href="/" className="hover:text-purple-500 focus:text-purple-500">Crow Auth</a>
+            Verify Email
           </h1>
         </div>
 
@@ -81,6 +88,6 @@ export default function Verify() {
           { errorMessage }
         </p>
       </main>
-    </div>
+    </Layout>
   )
 }

@@ -3,11 +3,14 @@ import { useRouter } from 'next/router';
 
 import axios from 'axios';
 
+import Layout from '../../components/layout';
+
 export default function ResetPassword() {
   const router = useRouter();
   const { resetToken: tokenFromQuery } = router.query;
   const [resetToken, setResetToken] = useState('');
   const [newPassword, setNewPassword] = useState('');
+  const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
@@ -30,6 +33,7 @@ export default function ResetPassword() {
   async function handleResetPassword(event) {
     event.preventDefault();
     setErrorMessage('');
+    setLoading(true);
 
     try {
       const res = await axios({
@@ -45,24 +49,27 @@ export default function ResetPassword() {
         router.push('/profile/signin');
       } else {
         setErrorMessage('There was an error resetting your password');
+        setLoading(false);
       }
     } catch (err) {
       console.error(err);
       const responseStatus = err.response.status;
       if (responseStatus === 500) {
         setErrorMessage('An unknown error occured. If this persists, please contact us.');
+        setLoading(false);
       } else {
         setErrorMessage('There was an error resetting your password');
+        setLoading(false);
       }
     }
   }
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen py-2">
+    <Layout>
       <main className="flex flex-col items-center justify-center flex-1 text-center">
         <div className="flex md:flex-row justify-center my-6">
           <h1 className="text-6xl font-bold mt-6">
-            Welcome to <a href="/" className="hover:text-purple-500 focus:text-purple-500">Crow Auth</a>
+            Reset Password
           </h1>
         </div>
 
@@ -88,7 +95,13 @@ export default function ResetPassword() {
             />
           </label>
           <button
-            className="mt-6 border p-2 hover:bg-purple-500 hover:text-white"
+            className={`
+              bg-white mt-6 border rounded-xl border-gray-300 p-2 hover:bg-purple-500 hover:text-white
+              ${
+                loading ? "bg-purple-500 text-white animate-pulse" : ""
+              }
+            `}
+            disabled={loading}
             onClick={handleResetPassword}
           >
             Reset Password
@@ -98,6 +111,6 @@ export default function ResetPassword() {
           { errorMessage }
         </p>
       </main>
-    </div>
+    </Layout>
   )
 }

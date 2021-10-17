@@ -3,6 +3,8 @@ import { useRouter } from 'next/router';
 
 import axios from 'axios';
 
+import Layout from '../../components/layout';
+
 export default function Profile() {
   const router = useRouter();
   const [email, setEmail] = useState('');
@@ -79,7 +81,7 @@ export default function Profile() {
 
   if (!email) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-screen py-2">
+      <Layout>
         <main className="flex flex-col items-center justify-center flex-1 text-center">
           <div className="flex md:flex-row justify-center my-6">
             <h1 className="text-6xl font-bold mt-6">
@@ -93,12 +95,12 @@ export default function Profile() {
             </h1>
           </div>
         </main>
-      </div>
+      </Layout>
     );
   }
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen py-2">
+    <Layout>
       <main className="flex flex-col items-center justify-center flex-1 text-center">
         <div className="flex md:flex-row justify-center my-6">
           <h1 className="text-6xl font-bold mt-6">
@@ -121,6 +123,6 @@ export default function Profile() {
             { errorMessage }
           </p>
       </main>
-    </div>
+    </Layout>
   );
 }
