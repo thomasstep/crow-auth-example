@@ -78,7 +78,13 @@ export default function Verify() {
             />
           </label>
           <button
-            className="mt-6 border p-2 hover:bg-purple-500 hover:text-white"
+            className={`
+              bg-white mt-6 border rounded-xl border-gray-300 p-2 hover:bg-purple-500 hover:text-white
+              ${
+                loading ? "bg-purple-500 text-white animate-pulse" : ""
+              }
+            `}
+            disabled={loading}
             onClick={handleVerification}
           >
             Verify
