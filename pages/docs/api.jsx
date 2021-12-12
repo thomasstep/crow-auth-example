@@ -170,16 +170,16 @@ const endpoints = [
           The way in which your application stores this JWT is up to you, but I suggest storing it as a cookie in the user's browser. This will allow your application to read and verify the user's identity on subsequent calls made from the UI.
         </p>
         <p className="mb-4">
-          To verify the JWT, I suggest using the public JWKS hosted by Crow at <a className="underline" href="https://crowauth.com/v1/jwks.json">https://crowauth.com/v1/jwks.json</a>. Using a library like npm's <code>jose</code>, allows for quick and easy verification of a JWT using the public key set.
+          To verify the JWT, I suggest using the public JWKS hosted by Crow at <a className="underline" href="https://crowauth.thomasstep.com/v1/jwks.json">https://crowauth.thomasstep.com/v1/jwks.json</a>. Using a library like npm's <code>jose</code>, allows for quick and easy verification of a JWT using the public key set.
         </p>
         <p className="mb-4">
-          Another method of verifying the JWT (although I do not suggest it) is using the public key as a file. The file is hosted by Crow at <a className="underline" href="https://crowauth.com/v1/crow-auth.key.pub">https://crowauth.com/v1/crow-auth.key.pub</a> and available for download.
+          Another method of verifying the JWT (although I do not suggest it) is using the public key as a file. The file is hosted by Crow at <a className="underline" href="https://crowauth.thomasstep.com/v1/crow-auth.key.pub">https://crowauth.thomasstep.com/v1/crow-auth.key.pub</a> and available for download.
         </p>
         <p className="mb-4">
           After the JWT is verified, the library that you choose to use should return the payload of the JWT. An example of what this would look like can be seen in the example <a className="underline" href="https://github.com/thomasstep/crow-auth-example/blob/6c033c2966f31cbe0610b0ff125da1a77fc0f627/pages/api/user.js#L10">Next.js Application</a>. The payload will contain the email address of the user currently holding the JWT.
         </p>
         <p className="mb-4">
-          Some other claims for verifying the JWT include <code>iss</code> and <code>aud</code>. The <code>iss</code> (or Issuer) will always be <code>https://api.crowauth.com</code> and the <code>aud</code> (or Audience) will always be the email address of the user. These claims should be verified before accepting the JWT as valid.
+          Some other claims for verifying the JWT include <code>iss</code> and <code>aud</code>. The <code>iss</code> (or Issuer) will always be <code>https://api.crowauth.thomasstep.com</code> and the <code>aud</code> (or Audience) will always be the email address of the user. These claims should be verified before accepting the JWT as valid.
         </p>
       </>
     ),
@@ -279,7 +279,7 @@ export default function ApiDocs() {
           <h1 className="text-6xl font-bold mt-6">
             Crow Auth's API
           </h1>
-          <p>Check the <a href="https://crowauth.com/docs/api" className="underline hover:text-purple-500 focus:text-purple-500">official documentation</a> as this might be out of date.</p>
+          <p>Check the <a href="https://crowauth.thomasstep.com/docs/api" className="underline hover:text-purple-500 focus:text-purple-500">official documentation</a> as this might be out of date.</p>
         </div>
 
         {

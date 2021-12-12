@@ -6,7 +6,7 @@ export default async (req, res) => {
   try {
     const { token } = cookie.parse(req.headers.cookie ?? '');
     if (token) {
-      const JWKS = createRemoteJWKSet(new URL('https://crowauth.com/v1/jwks.json'));
+      const JWKS = createRemoteJWKSet(new URL('https://crowauth.thomasstep.com/v1/jwks.json'));
       const { payload, protectedHeader } = await jwtVerify(token, JWKS);
       const { email } = payload;
       return res.status(200).json({ email });

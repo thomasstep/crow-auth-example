@@ -5,7 +5,7 @@ export default function Home() {
     <Layout>
       <div className="flex flex-col min-h-screen md:w-2/5 w-4/5 justify-center items-center gap-6">
         <h1 className="text-6xl font-bold mt-6">
-          Welcome to the <a href="https://crowauth.com/" className="hover:text-purple-500 focus:text-purple-500">Crow Auth</a> Example
+          Welcome to the <a href="https://crowauth.thomasstep.com/" className="hover:text-purple-500 focus:text-purple-500">Crow Auth</a> Example
         </h1>
       </div>
 

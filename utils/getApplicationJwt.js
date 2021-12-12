@@ -9,7 +9,7 @@ let APPLICATION_JWT;
 
 async function getApplicationJwt() {
   if (APPLICATION_JWT) {
-    const JWKS = createRemoteJWKSet(new URL('https://crowauth.com/v1/application-jwks.json'));
+    const JWKS = createRemoteJWKSet(new URL('https://crowauth.thomasstep.com/v1/application-jwks.json'));
     try {
       await jwtVerify(APPLICATION_JWT, JWKS, {
         maxTokenAge: 1800, // 1800 seconds or 30 minutes
@@ -33,11 +33,11 @@ async function getApplicationJwt() {
   if (jwtResponse.status === 200) {
     const token = jwtResponse.data.token;
 
-    const JWKS = createRemoteJWKSet(new URL('https://crowauth.com/v1/application-jwks.json'));
+    const JWKS = createRemoteJWKSet(new URL('https://crowauth.thomasstep.com/v1/application-jwks.json'));
     try {
       await jwtVerify(token, JWKS, {
         audience: process.env.CROW_AUTH_APP_ID,
-        issuer: 'https://api.crowauth.com',
+        issuer: 'https://api.crowauth.thomasstep.com',
       });
     } catch (err) {
       console.error('There was an error validating new application JWT.');
